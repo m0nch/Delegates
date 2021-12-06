@@ -6,28 +6,31 @@ using System.Threading.Tasks;
 
 namespace Delegates
 {
+    //Delegates as method parameters
+    delegate void GetMessage();
     class Program
     {
-        delegate void Message();
         static void Main(string[] args)
         {
-            Message message;
-            if (DateTime.Now.Hour < 12 )
+            if (DateTime.Now.Hour < 12)
             {
-                message = GoodMorning;
+                ShowMessage(GoodMorning);
             }
             else
             {
-                message = GoodEvening;
+                ShowMessage(GoodEvening);
             }
-            message();
+            Console.ReadKey();
         }
-
-        public static void GoodMorning()
+        private static void ShowMessage(GetMessage _getMessage)
+        {
+            _getMessage?.Invoke();
+        }
+        private static void GoodMorning()
         {
             Console.WriteLine("Good Morning!");
         }
-        public static void GoodEvening()
+        private static void GoodEvening()
         {
             Console.WriteLine("Good Evening!");
         }
